@@ -8,13 +8,13 @@ export class UrlReceiverModuleController {
   @Post()
   async createShortUrl(@Body() longUrl: string) {
     const shortUrl = this.urlReceiverService.generateShortUrl(longUrl);
-
+    this.urlReceiverService.getMappings();
     return {
       shortUrl
     };
   }
-
-//   @Get("redirect")
+ 
+  
 
 
 }
