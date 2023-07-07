@@ -10,9 +10,17 @@ constructor(private urlReceiverService: UrlReceiverService) {
 
 }
 
+  @Get()
+  endPointHit(){
+    console.log("end point hit");
+    return { url: 'https://www.google.com' };
+  }
+
+
   @Post()
   checkNewUrl(@Query('uuid') uuid: string){
     console.log("uuid: ",uuid);
+    console.log(this.urlReceiverService.urlMap);
   }
  
   // @Post()
