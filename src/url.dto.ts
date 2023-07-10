@@ -1,10 +1,14 @@
 
-import {IsString,IsNotEmpty} from 'class-validator'
+import {IsString,IsNotEmpty, IsUrl, IsAlphanumeric} from 'class-validator'
 
-export class UrlDto{
+export class UrlDto{ 
 
-    @IsString()
     @IsNotEmpty()
-    url: string;
+    @IsString()
+    @IsUrl()
+    
+
+    longUrl: string;
+    
     
 }

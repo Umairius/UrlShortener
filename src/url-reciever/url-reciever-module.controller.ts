@@ -6,20 +6,23 @@ import { UrlDto } from 'src/url.dto';
 export class UrlReceiverModuleController {
   constructor(private urlReceiverService: UrlReceiverService) {}
 
-  @Post()
+  @Post("register")
   @UsePipes(new ValidationPipe())
   
   async createShortUrl(@Body() longUrl: UrlDto) {
 
-    console.log("longUrl: ",longUrl);
-    // const shortUrl = this.urlReceiverService.generateShortUrl(longUrl);
-    this.urlReceiverService.getMappings();
+    let shortUrl ="https://" + this.urlReceiverService.generateShortUrl(longUrl);
+    this.urlReceiverService.searchShortUrl(shortUrl);
+
     return {
-      // shortUrl
-      duck : "working on it..."
+      shortUrl
     };
+
+   
+
   }
  
+
   
 
 
