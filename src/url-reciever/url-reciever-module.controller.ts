@@ -12,7 +12,6 @@ export class UrlReceiverModuleController {
   async createShortUrl(@Body() longUrl: UrlDto) {
 
     let shortUrl ="https://" + this.urlReceiverService.generateShortUrl(longUrl);
-    this.urlReceiverService.searchShortUrl(shortUrl);
 
     return {
       shortUrl
