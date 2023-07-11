@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
-import { UrlDto } from 'src/url.dto';
+import { ShortUrlDto } from 'src/url.dto';
 
 
 @Injectable()
@@ -8,38 +8,41 @@ export class UrlReceiverService {
 
   public urlMap: Map<string, string> = new Map<string, string>();
 
-  generateShortUrl(longUrl: UrlDto): string {
+  generateShortUrl(UrlObj: ShortUrlDto): string {
 
-    //unpack the longUrl
-    let url = longUrl.longUrl.toString();
+    let url = UrlObj.url.toString();
     if (this.searchLongUrl(url)) {
-      console.log("url already exists")
-      return this.searchLongUrl(url);
-      
+     
+      UrlObj.clicks
+      console.log("clicks: ",UrlObj.clicks)
+      return this.searchLongUrl(url); 
     }
-    const urlString = longUrl.longUrl.toString();
+
+
     const shortId = uuidv4();
-    this.urlMap.set(shortId, urlString);
+    this.urlMap.set(shortId, url);
     return shortId;
   }
 
+  
   searchShortUrl(shortUrl: string): string {
-    let uniqueUrl = shortUrl.slice(8, shortUrl.length)
-    console.log("uniqueUrl: ",uniqueUrl)
+    
+    console.log("shortUrl: ",shortUrl)
     console.log(this.urlMap)
 
-    if (this.urlMap.has(uniqueUrl)) {
+    if (this.urlMap.has(shortUrl)) {
       console.log("found url")
-      console.log(this.urlMap.get(uniqueUrl))
-      return this.urlMap.get(uniqueUrl);
+      console.log(this.urlMap.get(shortUrl))
+      return this.urlMap.get(shortUrl);
     }
     console.log("url not found")
     return null;
   }
 
-  searchLongUrl(uniqueUrl: string): string {
+  searchLongUrl(longUrl: string): string {
     for (const [key, value] of this.urlMap.entries()) {
-      if (value === uniqueUrl) {
+      console.log(key, value);
+      if (value === longUrl) {
         console.log("Found URL");
         return key;
       }

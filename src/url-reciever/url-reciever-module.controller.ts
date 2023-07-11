@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Get,UsePipes,ValidationPipe} from '@nestjs/common';
 import { UrlReceiverService } from './url-reciever.service';
-import { UrlDto } from 'src/url.dto';
+import { ShortUrlDto } from 'src/url.dto';
 
 @Controller('url')
 export class UrlReceiverModuleController {
@@ -9,9 +9,9 @@ export class UrlReceiverModuleController {
   @Post("register")
   @UsePipes(new ValidationPipe())
   
-  async createShortUrl(@Body() longUrl: UrlDto) {
+  async createShortUrl(@Body() UrlObj: ShortUrlDto) {
 
-    let shortUrl ="https://" + this.urlReceiverService.generateShortUrl(longUrl);
+    let shortUrl ="https://" + this.urlReceiverService.generateShortUrl(UrlObj);
 
     return {
       shortUrl
