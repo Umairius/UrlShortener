@@ -10,7 +10,7 @@ export class UrlRedirectorModuleController {
   @UsePipes(new ValidationPipe())
   @Get("/:shortUrl")
   handleRedirect(@Param("shortUrl") shortUrl: string) {
-    let longUrl = this.urlReceiverService.searchShortUrl(shortUrl);
+    let longUrl = "lala"
     console.log("actual url is " + longUrl);
     return {
       url: longUrl

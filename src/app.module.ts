@@ -1,19 +1,20 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UrlReceiverModuleController } from './url-reciever/url-reciever-module.controller';
+import { UrlReceiverModuleController } from './url-reciever/url-reciever.controller';
 import { UrlReceiverService } from './url-reciever/url-reciever.service';
 import { UrlRedirectorModuleController } from './url-redirector/url-redirector.controller';
-import { EventEmitter2 } from 'eventemitter2';
-import { EventEmitterModule } from '@nestjs/event-emitter';
 import { UrlReceiverModule } from './url-reciever/url-reciever.module';
 import { UrlRedirectorModule } from './url-redirector/url-redirector.module';
-
+import {MongooseModule} from '@nestjs/mongoose';
+// import { Url, UrlSchema } from './Models/url-entity';
 
 
 @Module({  
-  imports: [EventEmitterModule.forRoot(), UrlReceiverModule,UrlRedirectorModule,],
+  imports: [ UrlReceiverModule,UrlRedirectorModule,MongooseModule.forRoot(
+    'mongodb+srv://umair:root@experiment.vbu8fde.mongodb.net/?retryWrites=true&w=majority'
+  )],
   controllers: [AppController, UrlReceiverModuleController,UrlRedirectorModuleController],
-providers: [AppService, UrlReceiverService, EventEmitter2],
+providers: [AppService],
 })
 export class AppModule {}
