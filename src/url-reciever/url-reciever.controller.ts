@@ -13,16 +13,16 @@ export class UrlReceiverModuleController {
   
   
 
-  async createShortUrl(@Body() UrlObj: ShortUrlDto) {
+  async createShortUrl(@Body()UrlObj: ShortUrlDto) {
 
 
 
 
-    // let shortUrl ="https://" + this.urlReceiverService.generateShortUrl(UrlObj);
+    let shortUrl ="https://midget/" + await this.urlReceiverService.createShortUrl(UrlObj);
 
-    // return {
-    //   shortUrl
-    // };
+    return {
+      shortUrl
+    };
 
    
 

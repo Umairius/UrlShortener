@@ -18,14 +18,30 @@ export class UrlReceiverService {
 
 
 
-  async createShortUrl(UrlObj: ShortUrlDto) {
-
-    
-
+  async createShortUrl(UrlObj: ShortUrlDto): Promise<string> {
+    const shortUrl = uuidv4();
+    console.log(UrlObj.url)
+    const url = new this.urlEntity({
+      shortUrl: shortUrl,
+      longUrl: UrlObj.url,
+      location: UrlObj.location,
+      referrer: UrlObj.referrer,
+      clicks: 0,
+    });
+  
+    return new Promise((resolve, reject) => {
+      url.save()
+        .then(() => {
+          console.log("saved")
+          resolve(shortUrl);
+        })
+        .catch((error) => {
+          console.log("error")
+          reject(error);
+        });
+    });
   }
-
-
-
+  
 
 }
 

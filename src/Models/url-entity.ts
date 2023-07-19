@@ -1,17 +1,16 @@
 import * as mongoose from 'mongoose';
 
 export interface Url {
-    url: string;
-    location: string;
-    referrer: string;
-    clicks: number;
-
-  }
-  
+  longurl: string;
+  location: string;
+  referrer: string;
+  clicks: number;
+}
 
 export const UrlSchema = new mongoose.Schema({
-    url: String,
-    location: String,
-    referrer: String,
-    clicks: Number,
-  });
+  shortUrl: { type: String, required: true, unique: true },
+  longUrl: { type: String, required: true, unique: true },
+  location: { type: String, required: true },
+  referrer: { type: String, required: true },
+  clicks: { type: Number, default: 0 },
+});
