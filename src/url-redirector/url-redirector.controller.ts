@@ -1,22 +1,25 @@
 import { Controller, Post, Body, Get, Redirect,Query, Param, ValidationPipe, UsePipes} from '@nestjs/common';
-import { UrlReceiverService } from '../url-reciever/url-reciever.service';
-import { OnEvent } from '@nestjs/event-emitter';
+
+import { UrlRedirectorService } from './url-redirector.service';
 
 
 @Controller('redirect')
 export class UrlRedirectorModuleController {
-  constructor(private urlReceiverService: UrlReceiverService) {}
+  constructor(private urlRedirectorService: UrlRedirectorService) {}
 
   @UsePipes(new ValidationPipe())
   @Get("/:shortUrl")
-  handleRedirect(@Param("shortUrl") shortUrl: string) {
-    let longUrl = "lala"
-    console.log("actual url is " + longUrl);
+  async handleRedirect(@Param("shortUrl") shortUrl: string) {
+   console.log(shortUrl)
+
+    let res =  await this.urlRedirectorService.redirectToOriginal(shortUrl);
+
     return {
-      url: longUrl
+      Url: res
+    };
     };
   }
-}
+
 
 
 

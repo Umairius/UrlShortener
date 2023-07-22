@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 
 export interface Url {
-  longurl: string;
+  longUrl: string;
   location: string;
   referrer: string;
   clicks: number;
