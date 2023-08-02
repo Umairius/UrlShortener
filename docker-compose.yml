@@ -1,0 +1,15 @@
+version: '3'
+services:
+  nest-app:
+    build: .
+    ports:
+      - '3000:3000'
+    dns:
+      - 8.8.8.8  
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    ports:
+      - '6379:6379'

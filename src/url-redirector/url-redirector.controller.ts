@@ -11,7 +11,6 @@ export class UrlRedirectorModuleController {
   @UsePipes(new ValidationPipe())
   @Get("/:shortUrl")
   async handleRedirect(@Param("shortUrl") shortUrl: string, @Res() res: Response) {
-   console.log(shortUrl)
 
    try {
     const longUrl = await this.urlRedirectorService.redirectToOriginal(shortUrl);
