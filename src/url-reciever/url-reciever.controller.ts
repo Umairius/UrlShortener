@@ -3,33 +3,19 @@ import { UrlReceiverService } from './url-reciever.service';
 import { ShortUrlDto } from 'src/DTOs/url.dto';
 
 
-@Controller('url')
+@Controller()
 export class UrlReceiverModuleController {
   
   constructor(private urlReceiverService: UrlReceiverService) {}
 
   @Post("register")
   @UsePipes(new ValidationPipe())
-  
-  
 
   async createShortUrl(@Body()UrlObj: ShortUrlDto) {
-
-
-
-
-    let shortUrl ="https://midget/" + await this.urlReceiverService.createShortUrl(UrlObj);
+    let shortUrl =await this.urlReceiverService.createShortUrl(UrlObj);
 
     return {
       shortUrl
     };
-
-   
-
   }
- 
-
-  
-
-
 }

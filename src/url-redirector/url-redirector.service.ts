@@ -5,17 +5,15 @@ import { Url } from 'src/Models/url-entity';
 
 import Redis from 'ioredis';
 
-const redisClient = new Redis('redis://redis:6379');
-
+// const redisClient = new Redis('redis://redis:6379');
+const redisClient = new Redis();
 
 @Injectable()
 export class UrlRedirectorService {
   constructor(@InjectModel('Url') private readonly urlEntity: Model<Url>) {}
 
   async redirectToOriginal(shortUrl: string): Promise<string> {
-console.log("redirecting")
     try {
-      console.log("redirecting 2")
 
       const longUrl = await this.getOrSetCache(shortUrl, async () => {
         console.log("redirecting 3")
@@ -43,7 +41,7 @@ console.log("redirecting")
   }
 
   async getOrSetCache(key: string, cb: () => Promise<string>): Promise<string> {
-    console.log("redirecting 4")
+    
     const cachedData = await redisClient.get(key);
 
     if (cachedData) {

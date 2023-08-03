@@ -4,7 +4,7 @@ import { UrlRedirectorService } from './url-redirector.service';
 import { Response } from 'express';
 
 
-@Controller('redirect')
+@Controller()
 export class UrlRedirectorModuleController {
   constructor(private urlRedirectorService: UrlRedirectorService) {}
 

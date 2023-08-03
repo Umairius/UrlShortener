@@ -33,6 +33,7 @@
     "redis": "^4.6.7",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
+    "shortid": "^2.2.16",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
