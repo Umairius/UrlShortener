@@ -8,6 +8,11 @@ import {Model} from 'mongoose';
 import * as shortid from 'shortid';
 
 
+import Redis from 'ioredis';
+
+// const redisClient = new Redis('redis://redis:6379');
+const redisClient = new Redis();
+
 @Injectable()
 export class UrlReceiverService {
 
@@ -17,11 +22,10 @@ export class UrlReceiverService {
     const shortUrl = shortid.generate();
     console.log(UrlObj.url)
 
-    const UrlInDb = await this.urlEntity.findOne({longUrl : UrlObj.url});
-    console.log("Url fetched from db:",UrlInDb.shortUrl)
-    
-    if (UrlInDb) {
-      return UrlInDb.shortUrl;
+  
+    const urlInCache = await this.checkIfExists(UrlObj)
+    if(urlInCache){
+      return urlInCache
     }
   
 
@@ -45,5 +49,33 @@ export class UrlReceiverService {
         });
     });
   }
+
+
+  async checkIfExists(UrlObj: ShortUrlDto): Promise<string> {
+
+    console.log(UrlObj.url)
+    const urlInCache = await redisClient.get(UrlObj.url)
+    
+    
+
+    if(urlInCache){
+      console.log("Url fetched from cache:",urlInCache)
+      return urlInCache
+    }
+    console.log("Url not in cache")
+    const UrlInDb = await this.urlEntity.findOne({longUrl : UrlObj.url});
+    await redisClient.set(UrlInDb.longUrl , UrlInDb.shortUrl)
+
+    if (UrlInDb) {
+      console.log("Url fetched from db:",UrlInDb.shortUrl)
+      return UrlInDb.shortUrl;
+    }
+
+    // After it is recieved, cache the 
+
+
+
+  }
+
 }
 
