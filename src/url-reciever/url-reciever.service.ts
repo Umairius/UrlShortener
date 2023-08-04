@@ -27,6 +27,7 @@ export class UrlReceiverService {
     if(urlInCache){
       return urlInCache
     }
+
   
 
     const url = new this.urlEntity({
@@ -63,12 +64,16 @@ export class UrlReceiverService {
       return urlInCache
     }
     console.log("Url not in cache")
+    console.log("longurl",UrlObj.url)
+
     const UrlInDb = await this.urlEntity.findOne({longUrl : UrlObj.url});
-    await redisClient.set(UrlInDb.longUrl , UrlInDb.shortUrl)
 
     if (UrlInDb) {
       console.log("Url fetched from db:",UrlInDb.shortUrl)
       return UrlInDb.shortUrl;
+    }
+    else{
+      return
     }
 
     // After it is recieved, cache the 
