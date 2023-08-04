@@ -5,8 +5,8 @@ import { Url } from 'src/Models/url-entity';
 
 import Redis from 'ioredis';
 
-const redisClient = new Redis('redis://redis:6379');
-// const redisClient = new Redis();
+// const redisClient = new Redis('redis://redis:6379');
+const redisClient = new Redis();
 
 @Injectable()
 export class UrlRedirectorService {
@@ -59,3 +59,5 @@ export class UrlRedirectorService {
     }
   }
 }
+
+
