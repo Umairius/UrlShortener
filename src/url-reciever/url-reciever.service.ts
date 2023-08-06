@@ -10,8 +10,8 @@ import * as shortid from 'shortid';
 
 import Redis from 'ioredis';
 
-// const redisClient = new Redis('redis://redis:6379');
-const redisClient = new Redis();
+const redisClient = new Redis('redis://redis:6379');
+// const redisClient = new Redis();
 
 @Injectable()
 export class UrlReceiverService {
